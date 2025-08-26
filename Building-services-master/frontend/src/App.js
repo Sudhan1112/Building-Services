@@ -6,7 +6,8 @@ function App() {
   const [form, setForm] = useState({ title: "", content: "" });
 
   const fetchPosts = async () => {
-    const res = await axios.get("http://localhost:5000/api/posts");
+    const apiBaseUrl = process.env.REACT_APP_API_URL || "http://localhost:5000";
+    const res = await axios.get(`${apiBaseUrl}/api/posts`);
     setPosts(res.data);
   };
 
@@ -16,7 +17,8 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:5000/api/posts", form);
+    const apiBaseUrl = process.env.REACT_APP_API_URL || "http://localhost:5000";
+    await axios.post(`${apiBaseUrl}/api/posts`, form);
     setForm({ title: "", content: "" });
     fetchPosts();
   };
